@@ -2,7 +2,7 @@
 # Date: 04/12/18
 # Author: Drew Presson
 #   -> Adapeted from Makefile by Joshua Gearin
-# Description: Makefile for the Linked List assignment
+# Description: Binary Search Tree
 
 # Compiler Version
 CC=g++
@@ -14,7 +14,7 @@ DEBUG=-g
 MEMFLAGS=-fsanitize=address -fno-omit-frame-pointer
 
 # Target
-TARGET=book_list
+TARGET=SearchTree
 
 # Compile with all errors and warnings
 CFLAGS=-c -Wall $(DEBUG)
@@ -25,14 +25,18 @@ CFLAGS=-c -Wall $(DEBUG)
 
 all: $(TARGET)
 
-$(TARGET): main.o Library.o 
-	$(CC) main.o Library.o -o $(TARGET) $(MEMFLAGS) 
+$(TARGET): main.o Node.o BinarySearchTree.o
+	$(CC) main.o Node.o BinarySearchTree.o -o $(TARGET) $(MEMFLAGS) 
 
-main.o: main.cpp Library.h
+main.o: main.cpp Node.h
 	$(CC) $(CFLAGS) $(MEMFLAGS) main.cpp 
 
-Library.o: Library.cpp Library.h Book.h
-	$(CC) $(CFLAGS) $(MEMFLAGS) Library.cpp
+Node.o: Node.cpp Node.h
+	$(CC) $(CFLAGS) $(MEMFLAGS) Node.cpp
+
+BinarySearchTree.o : BinarySearchTree.cpp BinarySearchTree.h
+	$(CC) $(CFLAGS) $(MEMFLAGS) BinarySearchTree.cpp
+
 
 clean:
 rm -f *.o *~ $(TARGET) 
