@@ -38,4 +38,4 @@ BinarySearchTree.o : BinarySearchTree.cpp BinarySearchTree.h
 	$(CC) $(CFLAGS) $(MEMFLAGS) BinarySearchTree.cpp
 
 clean:
-rm -f *.o *~ $(TARGET) 
+rm -f *.o *~ $(TARGET)
