@@ -37,6 +37,5 @@ Node.o: Node.cpp Node.h
 BinarySearchTree.o : BinarySearchTree.cpp BinarySearchTree.h
 	$(CC) $(CFLAGS) $(MEMFLAGS) BinarySearchTree.cpp
 
-
 clean:
 rm -f *.o *~ $(TARGET) 
