@@ -1,6 +1,13 @@
+/*
+ * Name: Drew Presson
+ * Date: 04/10/18
+ * File: BinarySearchTree.cpp
+ * Description:  binary search tree class implementations
+ */
 #include "BinarySearchTree.h"
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
 
@@ -62,6 +69,24 @@ void BinarySearchTree::printHelper(Node *current) {
     cout << current->key << " ";
     printHelper(current->right);
   }
+}
+
+void BinarySearchTree::save(string inFile){
+
+    ofstream myOutFile;
+    myOutFile.open(inFile.c_str());
+
+    saveHelper(root, myOutFile);
+    myOutFile.close();
+}
+
+void BinarySearchTree::saveHelper(Node *current, std::ofstream& myOutFile){
+
+    if(current != NULL){
+        saveHelper(current->left,myOutFile);
+        myOutFile << current->key << " " << current ->data << endl;
+        saveHelper(current->right, myOutFile);
+    }
 }
 
 string BinarySearchTree::min(){
