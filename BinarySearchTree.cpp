@@ -30,19 +30,19 @@ void BinarySearchTree::insert(string key, int value) {
 
 
 void BinarySearchTree::insertHelper(Node *current, string key, int value) {
-  if(value < current->data) {
+  if(key < current->key) {
     //Insert Left
     if(current->left == NULL)
-      current->left = new Node(value);
+      current->left = new Node(key,value);
     else
-      insertHelper(current->left, value);
+      insertHelper(current->left, key, value);
   }
   else {
     //Insert Right
     if(current->right == NULL)
-      current->right = new Node(value);
+      current->right = new Node(key, value);
     else
-      insertHelper(current->right, value);
+      insertHelper(current->right, key, value);
   }
 
 }
@@ -59,29 +59,73 @@ void BinarySearchTree::printHelper(Node *current) {
   if(current != NULL) {
     printHelper(current->left);
     cout << current->data << " ";
+    cout << current->key << " ";
     printHelper(current->right);
   }
 }
 
+string BinarySearchTree::min(){
 
+    if(root == NULL){
+        return "NO MIN";
+    }
+    Node *current = root;
+    if ((current->left == NULL)&&(current->right==NULL)){
+        return current->key;
+    }
+    while(current->left != NULL){
+        current = current->left;
+    }
+    return current->key;
+}
 
+string BinarySearchTree::max(){
 
+    if(root == NULL){
+        return "NO MAX";
+    }
+    Node *current = root;
+    if ((current->left == NULL)&&(current->right==NULL)){
+        return current->key;
+    }
+    while(current->right != NULL){
+        current = current->right;
+    }
+    return current->key;
+}
 
-void BinarySearchTree::deleteNode(string key, int value) {
-  deleteHelper(root, key,  value);
+//searches the bst using a Word to search for.
+void BinarySearchTree::find(string Word){
+    findHelper(root,Word);
+}
+
+void BinarySearchTree::findHelper(Node* &current,string Word){
+    if(current == NULL)
+        return;
+    else if( Word < current->key)
+        findHelper(current->left,Word);
+    else if(current->key < Word)
+        findHelper(current->right,Word);
+    cout << "The string " << Word << " has the value of " << current->data << endl;
+        return;
+
+}
+
+void BinarySearchTree::deleteNode(string key) {
+  deleteHelper(root, key);
 }
 
 //need to add the string as the criteria for search
-void BinarySearchTree::deleteHelper(Node* &current, string key, int value) {
+void BinarySearchTree::deleteHelper(Node* &current, string key) {
   //Node doesn't exist
   if(current == NULL)
     return;
   //Go left
-  else if(value < current->data)
-    deleteHelper(current->left, value);
+  else if(key < current->key)
+    deleteHelper(current->left, key);
   //Go right
-  else if(current->data < value)
-    deleteHelper(current->right, value);
+  else if(current->key < key)
+    deleteHelper(current->right, key);
   //Equal
   else {
     Node *temp;
@@ -106,12 +150,12 @@ void BinarySearchTree::deleteHelper(Node* &current, string key, int value) {
 	temp = temp->left;
       }
 
-      current->data = temp->data;
+      current->key = temp->key;
 
       if(parent != NULL)
-	deleteHelper(parent->left, parent->left->data);
+	deleteHelper(parent->left,parent->left->key);
       else
-	deleteHelper(current->right, current->right->data);
+	deleteHelper(current->right, current->right->key);
 
     }//else
   }//else

@@ -4,9 +4,9 @@ using namespace std;
 #include <string>
 
 
-Node::Node(string key, int value) {
+Node::Node(string key1, int value) {
       left=NULL;
       right=NULL;
       data=value;
-      key = "";
+      key = key1;
 }
